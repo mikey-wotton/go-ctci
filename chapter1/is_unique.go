@@ -13,5 +13,16 @@ package arraysandstrings
 */
 
 func isUnique(s string) bool {
-	return false
+	m := make(map[rune]struct{}, len(s))
+
+	for _, r := range s {
+		_, exists := m[r]
+		if exists {
+			return false
+		}
+
+		m[r] = struct{}{}
+	}
+
+	return true
 }
