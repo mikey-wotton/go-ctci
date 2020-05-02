@@ -1,5 +1,10 @@
 package arraysandstrings
 
+import (
+	"sort"
+	"strings"
+)
+
 /*
   Is Unique: Implement an algorithm to determine if a string has all unique characters. What if you
   cannot use additional data structures?
@@ -22,6 +27,33 @@ func isUnique(s string) bool {
 		}
 
 		m[r] = struct{}{}
+	}
+
+	return true
+}
+
+//Brute force: O(n^2)
+func isUniqueBrute(s string) bool {
+	for i := range s {
+		for k := i + 1; k < len(s); k++ {
+			if s[i] == s[k] {
+				return false
+			}
+		}
+	}
+
+	return true
+}
+
+//Brute force: O(n log n)
+func isUniqueSorted(s string) bool {
+	sorted := strings.Split(s, "")
+	sort.Strings(sorted)
+
+	for i := 0; i < len(sorted)-1; i++ {
+		if sorted[i] == sorted[i+1] {
+			return false
+		}
 	}
 
 	return true
