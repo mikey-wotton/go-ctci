@@ -11,12 +11,12 @@ var tests = map[string]struct {
 		answer: false,
 	},
 	"Testing abcdefghijklmnopqrstuvwxyz": {
-		str:    "hello",
-		answer: false,
+		str:    "abcdefghijklmnopqrstuvwxyz",
+		answer: true,
 	},
 	"Testing AbCdEfG": {
-		str:    "hello",
-		answer: false,
+		str:    "AbCdEfG",
+		answer: true,
 	},
 	"Testing subdermatoglyphic": {
 		str:    "subdermatoglyphic",
