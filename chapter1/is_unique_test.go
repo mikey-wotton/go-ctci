@@ -2,7 +2,7 @@ package arraysandstrings
 
 import "testing"
 
-var tests = map[string]struct {
+var uniqueTests = map[string]struct {
 	str    string
 	answer bool
 }{
@@ -33,7 +33,7 @@ var tests = map[string]struct {
 }
 
 func Test_IsUnique(t *testing.T) {
-	for desc, test := range tests {
+	for desc, test := range uniqueTests {
 		got := isUnique(test.str)
 
 		if got != test.answer {
@@ -43,7 +43,7 @@ func Test_IsUnique(t *testing.T) {
 }
 
 func Test_isUniqueBrute(t *testing.T) {
-	for desc, test := range tests {
+	for desc, test := range uniqueTests {
 		got := isUniqueBrute(test.str)
 
 		if got != test.answer {
@@ -53,7 +53,7 @@ func Test_isUniqueBrute(t *testing.T) {
 }
 
 func Test_isUniqueSorted(t *testing.T) {
-	for desc, test := range tests {
+	for desc, test := range uniqueTests {
 		got := isUniqueSorted(test.str)
 
 		if got != test.answer {
