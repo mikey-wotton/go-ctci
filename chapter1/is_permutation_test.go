@@ -34,8 +34,8 @@ func Test_isPermutation(t *testing.T) {
 			want: true,
 		},
 		"all repeating letters is a permutation ": {
-			str:  "rrrrrrrrrrr",
-			perm: "rrrrrrrrrrr",
+			str:  "rrrrr",
+			perm: "rrrrr",
 			want: true,
 		},
 	}
