@@ -18,6 +18,24 @@ package arraysandstrings
 
 */
 
-func urlify(s string) string {
-	return ""
+const spaceASCII = 32 //the ascii byte representation for space
+
+func urlify(s []rune, actual int) {
+	l := len(s)
+
+	if l == actual {
+		return
+	}
+
+	for i := actual - 1; i >= 0; i-- {
+		if s[i] == spaceASCII {
+			s[l-1] = '0'
+			s[l-2] = '2'
+			s[l-3] = '%'
+			l -= 3
+		} else {
+			s[l-1] = s[i]
+			l--
+		}
+	}
 }
