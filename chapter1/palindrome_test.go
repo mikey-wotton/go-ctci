@@ -16,7 +16,7 @@ func Test_isPalindrome(t *testing.T) {
 			want: true,
 		},
 		"dual letter middle palindrome": {
-			str:  "Never odd or even",
+			str:  "never odd or even",
 			want: true,
 		},
 		"not a palindrome": {

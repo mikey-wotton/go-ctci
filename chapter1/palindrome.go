@@ -20,9 +20,32 @@ package arraysandstrings
   Hint #134: Have you tried a hash table? You should be able to get this down
   to 0 (N) time.
 
-  Hint #136: Can you reduce the space usage by using a bit vector? 1
+  Hint #136: Can you reduce the space usage by using a bit vector?
 */
-
+//Note: will not handle casing. Nan is not treated as a palindrome for example.
 func isPalindrome(s string) bool {
-	return false
+	m := make(map[rune]int, len(s))
+
+	for _, r := range s {
+		if r != spaceASCII {
+			if _, exists := m[r]; !exists {
+				m[r] = 0
+			}
+			m[r]++
+		}
+	}
+
+	oddCount := 0
+	for _, v := range m {
+		remainder := v % 2
+		if remainder > 0 {
+			oddCount++
+		}
+
+		if oddCount > 1 {
+			return false
+		}
+	}
+
+	return true
 }
