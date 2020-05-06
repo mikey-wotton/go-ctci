@@ -1,4 +1,4 @@
-package arraysandstrings
+package chapter1
 
 /*
   Palindrome Permutation: Given a string, write a function to check if it is a
