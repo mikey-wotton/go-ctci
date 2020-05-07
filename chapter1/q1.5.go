@@ -18,7 +18,49 @@ package chapter1
 
   Hint #130: Can you do all three checks in a single pass?
 */
-
+//Single pass: O(n)
 func isOneAway(str1, str2 string) bool {
-	return false
+	l1 := len(str1)
+	l2 := len(str2)
+
+	if Abs(l1-l2) > 1 {
+		return false
+	}
+
+	i, k, differenceCount := 0, 0, 0
+	for i < l1 && k < l2 {
+		if str1[i] != str2[k] {
+			if differenceCount == 1 {
+				return false
+			}
+
+			if l1 > l2 {
+				i++
+			} else if l1 < l2 {
+				k++
+			} else {
+				i++
+				k++
+			}
+
+			differenceCount++
+		} else {
+			i++
+			k++
+		}
+	}
+
+	if i < l1 || k < l2 {
+		differenceCount++
+	}
+
+	return differenceCount == 1
+}
+
+// Abs returns the absolute value of x.
+func Abs(x int) int {
+	if x < 0 {
+		return -x
+	}
+	return x
 }
