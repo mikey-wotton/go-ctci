@@ -15,13 +15,13 @@ func Test_compressString(t *testing.T) {
 			str:  "zzeeerrrrttttt",
 			want: "z2e3r4t5",
 		},
-		"string longer due to compression": {
-			str:  "abcd",
-			want: "a1b1c1d1",
-		},
-		"no compress should return original": {
+		"string length increased by compression returns original": {
 			str:  "abcdefg",
 			want: "abcdefg",
+		},
+		"compression of same size returns original": {
+			str:  "aabb", //a2b2 compressed
+			want: "aabb",
 		},
 		"empty string should return empty string": {
 			str:  "",

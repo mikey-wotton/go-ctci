@@ -1,5 +1,10 @@
 package chapter1
 
+import (
+	"bytes"
+	"fmt"
+)
+
 /*
   String Compression: Implement a method to perform basic string compression
   using the counts of repeated characters. For example, the string aabcccccaaa
@@ -14,7 +19,35 @@ package chapter1
   Hint #110: Be careful that you aren't repeatedly concatenating strings
   together. This can be very inefficient.
 */
-
+//Single pass: O(n)
 func compressString(s string) string {
-	return ""
+	length := len(s)
+	if length < 3 {
+		return s
+	}
+
+	var b bytes.Buffer
+
+	count, temp := 0, byte(0)
+	for i := range s {
+		byt := s[i]
+		if temp != byt {
+			if count != 0 {
+				b.WriteString(fmt.Sprintf("%s%d", string(temp), count))
+			}
+			temp = byt
+			count = 0
+		}
+		count++
+	}
+
+	//write final letter
+	b.WriteString(fmt.Sprintf("%s%d", string(temp), count))
+
+	final := b.String()
+	if len(final) >= length {
+		return s
+	}
+
+	return final
 }
