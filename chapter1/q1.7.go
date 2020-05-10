@@ -13,6 +13,44 @@ package chapter1
   this? Can you then extend it to four arrays?
 */
 
-func rotateMatrix(m [][]byte) [][]byte {
-	return nil
+func rotateMatrix(m [][]byte, antiClockwise bool) [][]byte {
+	k := len(m)
+
+	for i := 0; i < k/2; i++ {
+		for j := i; j < k-i-1; j++ {
+			if antiClockwise {
+				rotateAntiClockwise(m, i, j, k)
+			} else {
+				rotateClockwise(m, i, j, k)
+			}
+		}
+	}
+
+	return m
+}
+
+func rotateClockwise(m [][]byte, i, j, k int) {
+	a := k - i - 1
+	b := k - j - 1
+
+	topRight := m[j][a]
+	topLeft := m[i][j]
+	btmLeft := m[b][i]
+	btmRight := m[a][b]
+
+	m[j][a], m[i][j] = topLeft, btmLeft
+	m[b][i], m[a][b] = btmRight, topRight
+}
+
+func rotateAntiClockwise(m [][]byte, i, j, k int) {
+	a := k - i - 1
+	b := k - j - 1
+
+	topRight := m[j][a]
+	topLeft := m[i][j]
+	btmLeft := m[b][i]
+	btmRight := m[a][b]
+
+	m[j][a], m[i][j] = btmRight, topRight
+	m[b][i], m[a][b] = topLeft, btmLeft
 }
