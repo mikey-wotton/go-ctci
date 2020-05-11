@@ -17,6 +17,34 @@ package chapter1
   to a (1) by using the matrix itself for data storage?
 */
 
+type zeroLocation struct {
+	row int
+	col int
+}
+
 func zeroMatrix(m [][]int) [][]int {
-	return nil
+	//loop over entire matrices, denoting 0s at rowXcolumn
+	zeros := make([]zeroLocation, 0, len(m))
+	for i := range m {
+		for k := range m[i] {
+			if m[i][k] == 0 {
+				loc := zeroLocation{i, k}
+				zeros = append(zeros, loc)
+			}
+		}
+	}
+
+	//for each zero found
+	for _, loc := range zeros {
+		//replace column with 0s
+		for i := 0; i < len(m); i++ {
+			m[i][loc.col] = 0
+		}
+		//replace row with 0s
+		for k := 0; k < len(m[loc.row]); k++ {
+			m[loc.row][k] = 0
+		}
+	}
+
+	return m
 }
