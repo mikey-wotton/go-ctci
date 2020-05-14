@@ -22,7 +22,8 @@ type zeroLocation struct {
 	col int
 }
 
-//Brute force: O(M*N + 1^numberOfZeros*(M*N))
+//Two passes: O(M*N)
+//Additional space: O(M+N)
 func zeroMatrix(m [][]int) [][]int {
 	//loop over entire matrices, denoting 0s at rowXcolumn
 	zeros := make([]zeroLocation, 0, len(m))
