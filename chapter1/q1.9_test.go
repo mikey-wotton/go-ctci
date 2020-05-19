@@ -7,9 +7,24 @@ func Test_isRotated(t *testing.T) {
 		s1, s2 string
 		want   bool
 	}{
-		"small test": {
+		"empty string test": {
+			s1:   "",
+			s2:   "",
+			want: false,
+		},
+		"mismatching lengths test": {
+			s1:   "fish",
+			s2:   "steve",
+			want: false,
+		},
+		"small negative test": {
 			s1:   "boot",
 			s2:   "toob",
+			want: false,
+		},
+		"example waterbottle test": {
+			s1:   "waterbottle",
+			s2:   "erbottlewat",
 			want: true,
 		},
 	}

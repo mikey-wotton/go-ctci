@@ -1,7 +1,9 @@
 package chapter1
 
+import "strings"
+
 /*
-  Assume you have a method isSubst ring which checks if one word is a substring
+  Assume you have a method isSubstring which checks if one word is a substring
   of another. Given two strings, S1 and S2, write code to check if S2 is a
   rotation of S1 using only one call to isSubstring
   (e.g., "waterbottle" is a rotation of"erbottlewat").
@@ -21,6 +23,12 @@ package chapter1
 */
 
 func isRotated(s1, s2 string) bool {
+	n := len(s1)
+	if n == 0 || n != len(s2) {
+		return false
+	}
 
-	return false
+	s1 += s1
+
+	return strings.Contains(s1, s2)
 }
