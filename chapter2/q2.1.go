@@ -16,6 +16,21 @@ type node struct {
 	next  *node
 }
 
-func dedupe(head *node) {
+//Using hash map
+func dedupeHashMap(head *node) {
+	seen := make(map[int]struct{})
+	n := head
 
+	seen[n.value] = struct{}{}
+
+	for n.next != nil {
+		if _, exists := seen[n.next.value]; !exists {
+			//new node, log and move along
+			seen[n.next.value] = struct{}{}
+			n = n.next
+		} else {
+			//duplicate node, remove from chain
+			n.next = n.next.next
+		}
+	}
 }
