@@ -16,7 +16,8 @@ type node struct {
 	next  *node
 }
 
-//Using hash map
+//space complexity: O(N)
+//time complexity: O(N)
 func dedupeHashMap(head *node) {
 	seen := make(map[int]struct{})
 	n := head
@@ -25,12 +26,27 @@ func dedupeHashMap(head *node) {
 
 	for n.next != nil {
 		if _, exists := seen[n.next.value]; !exists {
-			//new node, log and move along
 			seen[n.next.value] = struct{}{}
 			n = n.next
 		} else {
-			//duplicate node, remove from chain
 			n.next = n.next.next
 		}
+	}
+}
+
+//space complexity: O(1)
+//time complexity: O(2N)
+func dedupeRunner(head *node) {
+	current := head
+	for current != nil {
+		runner := current
+		for runner.next != nil {
+			if current.value == runner.next.value {
+				runner.next = runner.next.next
+			} else {
+				runner = runner.next
+			}
+		}
+		current = current.next
 	}
 }
