@@ -26,10 +26,15 @@ func Test_returnKth(t *testing.T) {
 			num:  3,
 			want: &node{3, &node{4, &node{5, &node{6, nil}}}},
 		},
+		"return nil as target not in list": {
+			head: &node{1, &node{2, nil}},
+			num:  2,
+			want: nil,
+		},
 	}
 
 	for desc, test := range tests {
-		if got := returnKth(test.head); !reflect.DeepEqual(got, test.want) {
+		if got := returnKth(test.head, test.num); !reflect.DeepEqual(got, test.want) {
 			t.Errorf("%s test failed, got %v want %v", desc, got, test.want)
 		}
 	}

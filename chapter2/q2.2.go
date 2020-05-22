@@ -21,7 +21,26 @@ package chapter2
   more preprocessing, is there a way we could optimize this?
 */
 
-func returnKth(head *node) *node {
+//Space complexity O(N)
+//Time complexity O(N)
+func returnKth(head *node, k int) *node {
+	node, depth := returnKthRecursive(head, k)
+	if depth != k {
+		return nil
+	}
 
-	return nil
+	return node
+}
+
+func returnKthRecursive(n *node, k int) (*node, int) {
+	if n.next == nil {
+		return n, 0
+	}
+
+	node, i := returnKthRecursive(n.next, k)
+	if i == k {
+		return node, k
+	}
+
+	return n, i + 1
 }
