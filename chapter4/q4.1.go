@@ -18,6 +18,7 @@ type node struct {
 	edges []*node
 }
 
+//DFS using recurision
 func isRouteDFS(root *node, target int) bool {
 	if root.val == target {
 		return true
@@ -37,8 +38,11 @@ func isRouteDFS(root *node, target int) bool {
 	return false
 }
 
+//BFS using channels as a queue
 func isRouteBFS(root *node, target int) bool {
 	queue := make(chan *node, 50)
+	defer close(queue)
+
 	seen := make(map[int]bool)
 	seen[root.val] = true
 	queue <- root
