@@ -43,8 +43,8 @@ func isRouteBFS(root *node, target int) bool {
 	queue := make(chan *node, 50)
 	defer close(queue)
 
-	seen := make(map[int]bool)
-	seen[root.val] = true
+	seen := make(map[*node]bool)
+	seen[root] = true
 	queue <- root
 
 	for len(queue) > 0 {
@@ -54,8 +54,8 @@ func isRouteBFS(root *node, target int) bool {
 		}
 
 		for _, adj := range n.edges {
-			if !seen[adj.val] {
-				seen[adj.val] = true
+			if !seen[adj] {
+				seen[adj] = true
 				queue <- adj
 			}
 		}
