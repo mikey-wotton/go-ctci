@@ -1,5 +1,9 @@
 package chapter3
 
+import (
+	"fmt"
+)
+
 /*
   Three in One: Describe how you could use a single array to implement three
   stacks.
@@ -20,3 +24,79 @@ package chapter3
   Hint #58: Try thinking about the array as circular, such that the end of the
   array "wraps around" to the start of the array.
 */
+
+//NewThreeStackArray Initialises a three array stack with the individual stack capacity provided.
+func NewThreeStackArray() *ThreeStackArray {
+	return &ThreeStackArray{
+		stackCapacity: 33,
+		array:         [99]int{},
+		sizes:         [3]int{},
+	}
+}
+
+//ThreeStackArray implements three separate stacks using a single underlying array.
+type ThreeStackArray struct {
+	stackCapacity int
+	array         [99]int
+	sizes         [3]int
+}
+
+func (t *ThreeStackArray) pop(stack int) (int, error) {
+	if !t.isValidStack(stack) {
+		return 0, fmt.Errorf("stack %d is not a valid stack", stack)
+	}
+
+	if t.isEmpty(stack) {
+		return 0, fmt.Errorf("stack %d is empty", stack)
+	}
+
+	target := t.array[t.stackIndex(stack)]
+	t.array[t.stackIndex(stack)] = 0
+	t.sizes[stack]--
+
+	return target, nil
+}
+
+func (t *ThreeStackArray) push(stack, target int) error {
+	if !t.isValidStack(stack) {
+		return fmt.Errorf("stack %d is not a valid stack", stack)
+	}
+
+	if t.isFull(stack) {
+		return fmt.Errorf("stack %d is full", stack)
+	}
+
+	t.sizes[stack]++
+	t.array[t.stackIndex(stack)] = target
+
+	return nil
+}
+
+func (t *ThreeStackArray) peek(stack int) (int, error) {
+	if t.isEmpty(stack) {
+		return 0, fmt.Errorf("stack %d is empty", stack)
+	}
+
+	return t.array[t.stackIndex(stack)], nil
+}
+
+//Aux/helper functions
+
+func (t *ThreeStackArray) stackIndex(stackNum int) int {
+	offset := t.stackCapacity * stackNum
+	size := t.sizes[stackNum]
+
+	return offset + size - 1
+}
+
+func (t *ThreeStackArray) isFull(stack int) bool {
+	return t.sizes[stack] == t.stackCapacity
+}
+
+func (t *ThreeStackArray) isEmpty(stack int) bool {
+	return t.sizes[stack] == 0
+}
+
+func (t *ThreeStackArray) isValidStack(stack int) bool {
+	return stack >= 0 && stack < 3
+}
